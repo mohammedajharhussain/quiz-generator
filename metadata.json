@@ -1,0 +1,6 @@
+{
+  "name": "Quiz Generator",
+  "description": "An AI-powered topic-based quiz application that dynamically generates custom questions, handles a countdown timer, tracks scores, and displays correct answers with explanations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
