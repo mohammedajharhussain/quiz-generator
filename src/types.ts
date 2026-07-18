@@ -10,6 +10,7 @@ export interface QuizSession {
   questions: Question[];
   timeLimit: number; // in seconds
   totalQuestions: number;
+  source: "gemini" | "fallback";
 }
 
 export interface ScoreRecord {

@@ -3,6 +3,7 @@ import QuizSetup from "./components/QuizSetup";
 import QuizActive from "./components/QuizActive";
 import QuizResults from "./components/QuizResults";
 import HighScores from "./components/HighScores";
+import StudyAssistant from "./components/StudyAssistant";
 import { QuizSession, ScoreRecord } from "./types";
 import { Trophy, Brain, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
@@ -61,6 +62,7 @@ export default function App() {
         questions: data.questions,
         totalQuestions: data.totalQuestions,
         timeLimit: timerMinutes * 60,
+        source: data.source === "gemini" ? "gemini" : "fallback",
       });
       setUserAnswers(new Array(data.questions.length).fill(null));
       setView("quiz");
@@ -175,20 +177,27 @@ export default function App() {
         ) : (
           <div className="space-y-8">
             {view === "setup" && (
-              <QuizSetup
-                onGenerate={handleGenerateQuiz}
-                isLoading={isLoading}
-                error={error}
-              />
+              <>
+                <QuizSetup
+                  onGenerate={handleGenerateQuiz}
+                  isLoading={isLoading}
+                  error={error}
+                />
+                <StudyAssistant />
+              </>
             )}
 
             {view === "quiz" && activeQuiz && (
-              <QuizActive
-                topic={activeQuiz.topic}
-                questions={activeQuiz.questions}
-                timeLimit={activeQuiz.timeLimit}
-                onSubmit={handleQuizSubmit}
-              />
+              <>
+                <QuizActive
+                  topic={activeQuiz.topic}
+                  questions={activeQuiz.questions}
+                  timeLimit={activeQuiz.timeLimit}
+                  source={activeQuiz.source}
+                  onSubmit={handleQuizSubmit}
+                />
+                <StudyAssistant defaultTopic={activeQuiz.topic} />
+              </>
             )}
 
             {view === "results" && activeQuiz && (

@@ -7,10 +7,11 @@ interface QuizActiveProps {
   topic: string;
   questions: Question[];
   timeLimit: number; // in seconds
+  source: "gemini" | "fallback";
   onSubmit: (userAnswers: (number | null)[], timeSpent: number) => void;
 }
 
-export default function QuizActive({ topic, questions, timeLimit, onSubmit }: QuizActiveProps) {
+export default function QuizActive({ topic, questions, timeLimit, source, onSubmit }: QuizActiveProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [userAnswers, setUserAnswers] = useState<(number | null)[]>(
     new Array(questions.length).fill(null)
@@ -141,9 +142,14 @@ export default function QuizActive({ topic, questions, timeLimit, onSubmit }: Qu
       {/* Main Panel: Question Card */}
       <div className="lg:col-span-3 space-y-6">
         {/* Progress bar */}
-        <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
             {topic} • Q{currentIdx + 1} of {questions.length}
+          </div>
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] font-semibold">
+            <span className={`px-3 py-1 rounded-full ${source === "gemini" ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-amber-50 text-amber-700 border border-amber-100"}`}>
+              {source === "gemini" ? "AI-generated" : "Fallback quiz"}
+            </span>
           </div>
           <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
             <div

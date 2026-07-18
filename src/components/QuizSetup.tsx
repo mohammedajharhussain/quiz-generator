@@ -53,6 +53,10 @@ export default function QuizSetup({ onGenerate, isLoading, error }: QuizSetupPro
     setTopic(name);
   };
 
+  const updateTopic = (value: string) => {
+    setTopic(value);
+  };
+
   return (
     <div id="quiz-setup-container" className="max-w-2xl mx-auto">
       {/* Hero Header */}
@@ -125,7 +129,7 @@ export default function QuizSetup({ onGenerate, isLoading, error }: QuizSetupPro
                   id="topic-input"
                   type="text"
                   value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
+                  onChange={(e) => updateTopic(e.target.value)}
                   placeholder="e.g. quantum physics, French cuisine, world capitals..."
                   className="w-full pl-5 pr-12 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 placeholder-slate-400 font-medium transition-all"
                   required
